@@ -14,9 +14,9 @@ import (
 	"time"
 	"unicode"
 
-	retry "github.com/StirlingMarketingGroup/go-retry"
+	"github.com/StirlingMarketingGroup/go-retry"
 	"github.com/davecgh/go-spew/spew"
-	humanize "github.com/dustin/go-humanize"
+	"github.com/dustin/go-humanize"
 	"github.com/jhillyerd/enmime"
 	. "github.com/logrusorgru/aurora"
 	"golang.org/x/net/html/charset"
@@ -179,7 +179,7 @@ func New(username string, password string, host string, port int) (d *Dialer, er
 			log(connNum, "", Green(Bold("establishing connection")))
 		}
 		var conn *tls.Conn
-		conn, err = tls.Dial("tcp", host+":"+strconv.Itoa(port), nil)
+		conn, err = tls.Dial("tcp", host+":"+strconv.Itoa(port), &tls.Config{InsecureSkipVerify: true})
 		if err != nil {
 			if Verbose {
 				log(connNum, "", Red(Bold(fmt.Sprintf("failed to connect: %s", err))))
